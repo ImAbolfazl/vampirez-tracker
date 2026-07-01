@@ -84,7 +84,7 @@ async function checkPlayerCount() {
   try {
     const players = await fetchVampirezCount();
 
-    if (players <= 9) return;
+    if (players <= 8) return;
 
     const now = Date.now();
 
