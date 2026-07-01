@@ -49,7 +49,7 @@ client.once("ready", async () => {
     console.error(err);
   }
 
-  setInterval(checkPlayerCount, 1000);
+  setInterval(checkPlayerCount, 5000);
 });
 
 client.on("interactionCreate", async (interaction) => {

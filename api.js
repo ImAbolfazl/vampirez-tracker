@@ -31,7 +31,7 @@ async function fetchData() {
 
 setInterval(async () => {
     currentPlayers = await fetchData()
-}, 1000)
+}, 5000)
 
 app.get("/counts", (req, res) => {
     res.json(currentPlayers)
