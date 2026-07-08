@@ -55,7 +55,7 @@ setInterval(async () => {
 }, 5000);
 
 app.get("/counts", (req, res) => {
-  if(req.header.password != process.env.PASSWORD){return res.sendStatus(401)}
+  if(req.headers.password != process.env.PASSWORD){return res.sendStatus(401)}
   res.json(currentPlayers);
 });
 
