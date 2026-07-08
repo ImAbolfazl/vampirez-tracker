@@ -55,7 +55,8 @@ setInterval(async () => {
 }, 5000);
 
 app.get("/counts", (req, res) => {
-    res.json(currentPlayers);
+  if(req.header.password != process.env.PASSWORD){return res.sendStatus(401)}
+  res.json(currentPlayers);
 });
 
 app.listen(PORT, () => {
@@ -111,9 +112,15 @@ client.on("interactionCreate", async (interaction) => {
 
 async function fetchVampirezCount() {
   try {
-    const response = await axios.get(`${API_URL}/counts`, {
-      timeout: 5000,
-    });
+    const response = await axios.get(
+      `${API_URL}/counts`, 
+      {
+        timeout: 5000,
+        headers: {
+          password: process.env.PASSWORD
+        }
+      }
+    );
 
     return response.data.games.LEGACY.modes.VAMPIREZ;
   } catch (err) {
