@@ -1,6 +1,11 @@
 import { Client, GatewayIntentBits, SlashCommandBuilder, Routes } from "discord.js";
 import { REST } from "@discordjs/rest";
 import axios from "axios";
+import express from "express";
+import cors from "cors";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 process.on("uncaughtException", (err) => {
   console.error("UNCAUGHT EXCEPTION");
@@ -13,10 +18,49 @@ process.on("unhandledRejection", (err) => {
 });
 
 const TOKEN = process.env.TOKEN;
+const PORT = process.env.PORT || 8055;
+const API_URL = process.env.API_URL || `http://localhost:${PORT}`;
 
 let targetChannel = null;
 let targetRole = null;
 let lastAlertTime = 0;
+
+const app = express();
+let currentPlayers = "";
+
+app.use(cors({
+    origin:"*",
+    methods:"*"
+}));
+app.use(express.json());
+
+async function fetchData() {
+    try{
+        const response = await axios({
+            method: "get",
+            url: "https://api.hypixel.net/v2/counts",
+            headers: {
+                "API-Key": process.env.HYPIXEL_API_KEY
+            }
+        });
+
+        if(response){
+            return response.data;
+        }
+    }catch(err){console.log(err);}
+}
+
+setInterval(async () => {
+    currentPlayers = await fetchData();
+}, 5000);
+
+app.get("/counts", (req, res) => {
+    res.json(currentPlayers);
+});
+
+app.listen(PORT, () => {
+    console.log(`server running on port ${PORT}`);
+});
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
@@ -67,7 +111,7 @@ client.on("interactionCreate", async (interaction) => {
 
 async function fetchVampirezCount() {
   try {
-    const response = await axios.get("http://localhost:8080/counts", {
+    const response = await axios.get(`${API_URL}/counts`, {
       timeout: 5000,
     });
 
