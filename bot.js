@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, SlashCommandBuilder, Routes } from "discord.js";
+import { Client, GatewayIntentBits, SlashCommandBuilder, Routes, PermissionFlagsBits } from "discord.js";
 import { REST } from "@discordjs/rest";
 import axios from "axios";
 import express from "express";
@@ -73,6 +73,8 @@ const commands = [
   new SlashCommandBuilder()
     .setName("setup")
     .setDescription("Set the channel and role for VampireZ alerts")
+    .setDMPermission(false)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .addChannelOption((o) =>
       o.setName("channel").setDescription("Channel").setRequired(true)
     )
@@ -101,6 +103,10 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === "setup") {
+    if (!interaction.guild) {
+      return interaction.reply({ content: "This command can't be used in DMs.", ephemeral: true });
+    }
+
     targetChannel = interaction.options.getChannel("channel");
     targetRole = interaction.options.getRole("role");
 
