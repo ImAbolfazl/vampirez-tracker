@@ -1,6 +1,6 @@
 # VampireZ Tracker
 
-A Discord bot that checks the player count for **VampireZ** on Hypixel and pings a role when it's has enough players to queue. Built with **Discord.js**, **Express**, and the **Hypixel API**.
+A Discord bot that checks the player count for **VampireZ** on Hypixel and pings a role when it has enough players to queue. Built with **Discord.js**, **Express**, and the **Hypixel API**.
 
 ## Features
 
