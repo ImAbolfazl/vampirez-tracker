@@ -53,7 +53,7 @@ API_URL=http://localhost:8055
 ### Run the bot
 
 ```bash
-node index.js
+node bot.js
 ```
 
 The bot will log in to Discord, register its slash command, and start polling Hypixel for player counts. The Express server will run on:
