@@ -92,6 +92,8 @@ Headers:
 
 ## Notes
  
+The `/counts` endpoint is also used by other projects, not just this bot — that's why it's exposed as an API instead of just being an internal variable.
+
 The bot only supports one server at a time. If you run `/setup` in another server, it will replace the previous one.
 
 ## Author
