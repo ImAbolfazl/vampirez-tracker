@@ -90,6 +90,10 @@ Headers:
 }
 ```
 
+## Notes
+ 
+The bot only supports one server at a time. If you run `/setup` in another server, it will replace the previous one.
+
 ## Author
 
 Built by Abolfazl & iRxngo!
