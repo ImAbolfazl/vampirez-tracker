@@ -1,3 +1,5 @@
+<img width="1282" height="618" alt="image" src="https://github.com/user-attachments/assets/bb099341-41bd-45b3-ad04-ef82ac47eb68" />
+
 # VampireZ Tracker
 
 A Discord bot that checks the player count for **VampireZ** on Hypixel and pings a role when it has enough players to queue. Built with **Discord.js**, **Express**, and the **Hypixel API**.
